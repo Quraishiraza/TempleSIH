@@ -17,6 +17,7 @@ import Parking from './pages/Parking';
 import BookParking from './pages/BookParking';
 import Profile from './pages/Profile';
 import MyBookings from './pages/MyBookings';
+import Analytics from './pages/Analytics';
 
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
@@ -69,6 +70,7 @@ function AppRoutes() {
         <Route path="book-parking/:zoneId" element={<BookParking />} />
         <Route path="profile" element={<Profile />} />
         <Route path="my-bookings" element={<MyBookings />} />
+        <Route path="analytics" element={<Analytics />} />
       </Route>
     </Routes>
   );

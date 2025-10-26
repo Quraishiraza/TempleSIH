@@ -1,0 +1,93 @@
+{
+  "app": {
+    "name": "Trinetra",
+    "tagline": "Smart Temple Management"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "temples": "Temples",
+    "myBookings": "My Bookings",
+    "parking": "Parking",
+    "analytics": "Analytics",
+    "profile": "Profile",
+    "logout": "Logout"
+  },
+  "common": {
+    "welcome": "Welcome",
+    "namaste": "Namaste",
+    "back": "Back",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  },
+  "home": {
+    "title": "Namaste, {{name}}!",
+    "subtitle": "Welcome to your Trinetra dashboard. Plan your spiritual journey with ease.",
+    "totalTemples": "Total Temples",
+    "activeBookings": "Active Bookings",
+    "parkingBookings": "Parking Bookings",
+    "totalVisits": "Total Visits",
+    "currentOccupancy": "Current Temple Occupancy",
+    "crowdStatus": "Crowd Status Distribution",
+    "quickActions": "Quick Actions",
+    "exploreTemples": "Explore Temples",
+    "browseAll": "Browse all temples",
+    "viewBookings": "View all bookings",
+    "bookParking": "Reserve parking spot",
+    "popularTemples": "Popular Temples",
+    "mlForecast": "AI-Powered 7-Day Crowd Forecast",
+    "mlPredictions": "ML Predictions",
+    "festivalAlert": "Festival Alert",
+    "bestTimeToVisit": "Best Time to Visit",
+    "expectedVisitors": "Expected"
+  },
+  "temples": {
+    "title": "Explore Temples",
+    "subtitle": "Discover sacred places and plan your visit",
+    "viewDetails": "View Details",
+    "bookDarshan": "Book Darshan",
+    "currentStatus": "Current Status",
+    "occupancy": "Occupancy",
+    "waitTime": "Wait Time",
+    "entryFee": "Entry Fee"
+  },
+  "booking": {
+    "title": "Book Darshan",
+    "details": "Booking Details",
+    "selectDate": "Select Date",
+    "selectTime": "Select Time Slot",
+    "numberOfPeople": "Number of People",
+    "aiRecommendation": "AI-Powered Smart Recommendation",
+    "basedOnData": "Based on historical data and crowd patterns, we recommend:",
+    "bestDay": "Best Day",
+    "bestTime": "Best Time",
+    "crowdPrediction": "Crowd Prediction for Selected Date",
+    "expectedVisitors": "Expected Visitors",
+    "festivalDay": "Festival Day - Expect significantly higher crowd than usual",
+    "lowCrowd": "Great choice! This date typically has lower crowd levels.",
+    "highCrowd": "Consider choosing a different date with lower crowd levels for a better experience.",
+    "confirmBooking": "Confirm Booking"
+  },
+  "analytics": {
+    "title": "Analytics Dashboard",
+    "subtitle": "Comprehensive insights and statistics for temple management",
+    "totalUsers": "Total Users",
+    "totalBookings": "Total Bookings",
+    "parkingBookings": "Parking Bookings",
+    "totalRevenue": "Total Revenue",
+    "bookingTrends": "7-Day Booking Trends",
+    "timeSlotDist": "Time Slot Distribution",
+    "templeStats": "Temple-wise Statistics",
+    "crowdStatus": "Real-time Crowd Status",
+    "parkingAnalytics": "Parking Analytics"
+  },
+  "crowd": {
+    "low": "Low",
+    "moderate": "Moderate",
+    "high": "High"
+  }
+}
+

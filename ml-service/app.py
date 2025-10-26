@@ -244,7 +244,7 @@ def internal_error(error):
 
 if __name__ == '__main__':
     print("🚀 Starting Trinetra ML Service...")
-    print("📡 Server will run on http://localhost:5000")
+    print("📡 Server will run on http://localhost:5001")
     print("\n📋 Available Endpoints:")
     print("   GET  /api/ml/health")
     print("   POST /api/ml/generate-data")
@@ -256,5 +256,5 @@ if __name__ == '__main__':
     print("   POST /api/ml/batch-predict")
     print("\n✨ Ready to predict crowds!\n")
     
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=True)
 

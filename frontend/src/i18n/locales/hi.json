@@ -1,0 +1,93 @@
+{
+  "app": {
+    "name": "त्रिनेत्र",
+    "tagline": "स्मार्ट मंदिर प्रबंधन"
+  },
+  "nav": {
+    "dashboard": "डैशबोर्ड",
+    "temples": "मंदिर",
+    "myBookings": "मेरी बुकिंग",
+    "parking": "पार्किंग",
+    "analytics": "विश्लेषण",
+    "profile": "प्रोफ़ाइल",
+    "logout": "लॉग आउट"
+  },
+  "common": {
+    "welcome": "स्वागत है",
+    "namaste": "नमस्ते",
+    "back": "वापस",
+    "submit": "जमा करें",
+    "cancel": "रद्द करें",
+    "save": "सहेजें",
+    "loading": "लोड हो रहा है...",
+    "error": "त्रुटि",
+    "success": "सफलता"
+  },
+  "home": {
+    "title": "नमस्ते, {{name}}!",
+    "subtitle": "आपके त्रिनेत्र डैशबोर्ड में आपका स्वागत है। अपनी आध्यात्मिक यात्रा की आसानी से योजना बनाएं।",
+    "totalTemples": "कुल मंदिर",
+    "activeBookings": "सक्रिय बुकिंग",
+    "parkingBookings": "पार्किंग बुकिंग",
+    "totalVisits": "कुल यात्राएं",
+    "currentOccupancy": "वर्तमान मंदिर व्यस्तता",
+    "crowdStatus": "भीड़ स्थिति वितरण",
+    "quickActions": "त्वरित क्रियाएं",
+    "exploreTemples": "मंदिर खोजें",
+    "browseAll": "सभी मंदिर ब्राउज़ करें",
+    "viewBookings": "सभी बुकिंग देखें",
+    "bookParking": "पार्किंग आरक्षित करें",
+    "popularTemples": "लोकप्रिय मंदिर",
+    "mlForecast": "AI-संचालित 7-दिन भीड़ पूर्वानुमान",
+    "mlPredictions": "ML पूर्वानुमान",
+    "festivalAlert": "त्योहार चेतावनी",
+    "bestTimeToVisit": "यात्रा का सर्वोत्तम समय",
+    "expectedVisitors": "अपेक्षित"
+  },
+  "temples": {
+    "title": "मंदिर खोजें",
+    "subtitle": "पवित्र स्थानों की खोज करें और अपनी यात्रा की योजना बनाएं",
+    "viewDetails": "विवरण देखें",
+    "bookDarshan": "दर्शन बुक करें",
+    "currentStatus": "वर्तमान स्थिति",
+    "occupancy": "व्यस्तता",
+    "waitTime": "प्रतीक्षा समय",
+    "entryFee": "प्रवेश शुल्क"
+  },
+  "booking": {
+    "title": "दर्शन बुक करें",
+    "details": "बुकिंग विवरण",
+    "selectDate": "तारीख चुनें",
+    "selectTime": "समय स्लॉट चुनें",
+    "numberOfPeople": "लोगों की संख्या",
+    "aiRecommendation": "AI-संचालित स्मार्ट सिफारिश",
+    "basedOnData": "ऐतिहासिक डेटा और भीड़ पैटर्न के आधार पर, हम सुझाव देते हैं:",
+    "bestDay": "सर्वोत्तम दिन",
+    "bestTime": "सर्वोत्तम समय",
+    "crowdPrediction": "चयनित तारीख के लिए भीड़ पूर्वानुमान",
+    "expectedVisitors": "अपेक्षित आगंतुक",
+    "festivalDay": "त्योहार का दिन - सामान्य से काफी अधिक भीड़ की उम्मीद",
+    "lowCrowd": "बढ़िया चुनाव! इस तारीख में आमतौर पर कम भीड़ होती है।",
+    "highCrowd": "बेहतर अनुभव के लिए कम भीड़ वाली अन्य तारीख चुनने पर विचार करें।",
+    "confirmBooking": "बुकिंग की पुष्टि करें"
+  },
+  "analytics": {
+    "title": "विश्लेषण डैशबोर्ड",
+    "subtitle": "मंदिर प्रबंधन के लिए व्यापक अंतर्दृष्टि और आंकड़े",
+    "totalUsers": "कुल उपयोगकर्ता",
+    "totalBookings": "कुल बुकिंग",
+    "parkingBookings": "पार्किंग बुकिंग",
+    "totalRevenue": "कुल राजस्व",
+    "bookingTrends": "7-दिन बुकिंग रुझान",
+    "timeSlotDist": "समय स्लॉट वितरण",
+    "templeStats": "मंदिर-वार आंकड़े",
+    "crowdStatus": "वास्तविक समय भीड़ स्थिति",
+    "parkingAnalytics": "पार्किंग विश्लेषण"
+  },
+  "crowd": {
+    "low": "कम",
+    "moderate": "मध्यम",
+    "high": "उच्च"
+  }
+}
+

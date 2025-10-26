@@ -200,6 +200,238 @@ app.patch('/api/parking-bookings/:id/cancel', async (req, res) => {
   }
 });
 
+// ==================== ANALYTICS API ENDPOINTS ====================
+
+// Health check
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', message: 'Data server is running' });
+});
+
+// Get comprehensive analytics data
+app.get('/api/analytics/overview', async (req, res) => {
+  try {
+    const users = await readJSON('users.json');
+    const bookings = await readJSON('bookings.json');
+    const parkingBookings = await readJSON('parking-bookings.json');
+    const temples = await readJSON('temples.json');
+    const parkingZones = await readJSON('parking-zones.json');
+
+    // Calculate statistics
+    const totalUsers = users.length;
+    const totalBookings = bookings.length;
+    const totalParkingBookings = parkingBookings.length;
+    const activeBookings = bookings.filter(b => b.status === 'confirmed').length;
+    const activeParkingBookings = parkingBookings.filter(b => b.status === 'active').length;
+
+    // Revenue calculations (assuming base prices)
+    const bookingRevenue = bookings.reduce((sum, b) => {
+      const temple = temples.find(t => t.id === b.templeId);
+      if (!temple) return sum;
+      const price = temple.entryFee === 'Free' ? 0 : parseInt(temple.entryFee.replace(/[^0-9]/g, ''));
+      return sum + (price * b.numberOfPeople);
+    }, 0);
+
+    const parkingRevenue = parkingBookings.reduce((sum, b) => sum + (b.fees || 0), 0);
+    const totalRevenue = bookingRevenue + parkingRevenue;
+
+    // Temple-wise statistics
+    const templeStats = temples.map(temple => {
+      const templeBookings = bookings.filter(b => b.templeId === temple.id);
+      const totalVisitors = templeBookings.reduce((sum, b) => sum + b.numberOfPeople, 0);
+      return {
+        id: temple.id,
+        name: temple.name,
+        location: temple.location,
+        totalBookings: templeBookings.length,
+        totalVisitors,
+        currentOccupancy: temple.currentOccupancy,
+        crowdStatus: temple.crowdStatus,
+        avgWaitTime: temple.estimatedWaitTime
+      };
+    });
+
+    // Booking trends (last 7 days)
+    const last7Days = Array.from({ length: 7 }, (_, i) => {
+      const date = new Date();
+      date.setDate(date.getDate() - (6 - i));
+      return date.toISOString().split('T')[0];
+    });
+
+    const bookingTrends = last7Days.map(date => ({
+      date: new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+      bookings: bookings.filter(b => b.bookingDate?.startsWith(date)).length,
+      parking: parkingBookings.filter(b => b.bookingDate?.startsWith(date)).length
+    }));
+
+    // Time slot distribution
+    const timeSlotDistribution = {};
+    bookings.forEach(b => {
+      const slot = b.timeSlot || 'Unknown';
+      timeSlotDistribution[slot] = (timeSlotDistribution[slot] || 0) + 1;
+    });
+
+    // User demographics
+    const userDemographics = {
+      total: totalUsers,
+      roles: users.reduce((acc, user) => {
+        acc[user.role] = (acc[user.role] || 0) + 1;
+        return acc;
+      }, {})
+    };
+
+    res.json({
+      overview: {
+        totalUsers,
+        totalBookings,
+        totalParkingBookings,
+        activeBookings,
+        activeParkingBookings,
+        totalRevenue,
+        bookingRevenue,
+        parkingRevenue
+      },
+      templeStats,
+      bookingTrends,
+      timeSlotDistribution: Object.entries(timeSlotDistribution).map(([slot, count]) => ({
+        slot,
+        count
+      })),
+      userDemographics
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Get temple-specific analytics
+app.get('/api/analytics/temple/:templeId', async (req, res) => {
+  try {
+    const { templeId } = req.params;
+    const bookings = await readJSON('bookings.json');
+    const temples = await readJSON('temples.json');
+    
+    const temple = temples.find(t => t.id === templeId);
+    if (!temple) {
+      return res.status(404).json({ error: 'Temple not found' });
+    }
+
+    const templeBookings = bookings.filter(b => b.templeId === templeId);
+    const totalVisitors = templeBookings.reduce((sum, b) => sum + b.numberOfPeople, 0);
+    
+    // Date-wise bookings
+    const dateWiseBookings = {};
+    templeBookings.forEach(b => {
+      const date = b.bookingDate?.split('T')[0] || 'Unknown';
+      if (!dateWiseBookings[date]) {
+        dateWiseBookings[date] = { bookings: 0, visitors: 0 };
+      }
+      dateWiseBookings[date].bookings += 1;
+      dateWiseBookings[date].visitors += b.numberOfPeople;
+    });
+
+    // Time slot analysis
+    const timeSlotAnalysis = {};
+    templeBookings.forEach(b => {
+      const slot = b.timeSlot || 'Unknown';
+      if (!timeSlotAnalysis[slot]) {
+        timeSlotAnalysis[slot] = { bookings: 0, visitors: 0 };
+      }
+      timeSlotAnalysis[slot].bookings += 1;
+      timeSlotAnalysis[slot].visitors += b.numberOfPeople;
+    });
+
+    res.json({
+      temple: {
+        id: temple.id,
+        name: temple.name,
+        location: temple.location,
+        currentOccupancy: temple.currentOccupancy,
+        maxCapacity: temple.maxCapacity,
+        crowdStatus: temple.crowdStatus
+      },
+      stats: {
+        totalBookings: templeBookings.length,
+        totalVisitors,
+        avgVisitorsPerBooking: (totalVisitors / templeBookings.length || 0).toFixed(1)
+      },
+      dateWiseBookings: Object.entries(dateWiseBookings).map(([date, data]) => ({
+        date,
+        ...data
+      })),
+      timeSlotAnalysis: Object.entries(timeSlotAnalysis).map(([slot, data]) => ({
+        slot,
+        ...data
+      }))
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Get real-time crowd status for all temples
+app.get('/api/analytics/crowd-status', async (req, res) => {
+  try {
+    const temples = await readJSON('temples.json');
+    const crowdStatus = temples.map(temple => ({
+      id: temple.id,
+      name: temple.name,
+      location: temple.location,
+      currentOccupancy: temple.currentOccupancy,
+      maxCapacity: temple.maxCapacity,
+      currentVisitors: Math.floor(temple.maxCapacity * temple.currentOccupancy / 100),
+      crowdStatus: temple.crowdStatus,
+      estimatedWaitTime: temple.estimatedWaitTime
+    }));
+
+    res.json({ crowdStatus });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Get parking analytics
+app.get('/api/analytics/parking', async (req, res) => {
+  try {
+    const parkingZones = await readJSON('parking-zones.json');
+    const parkingBookings = await readJSON('parking-bookings.json');
+
+    const parkingStats = parkingZones.map(zone => {
+      const zoneBookings = parkingBookings.filter(b => b.zoneId === zone.id);
+      const activeBookings = zoneBookings.filter(b => b.status === 'active');
+      const totalRevenue = zoneBookings.reduce((sum, b) => sum + (b.fees || 0), 0);
+
+      return {
+        id: zone.id,
+        name: zone.name,
+        totalSpots: zone.totalSpots,
+        availableSpots: zone.availableSpots,
+        occupancyRate: ((zone.totalSpots - zone.availableSpots) / zone.totalSpots * 100).toFixed(1),
+        totalBookings: zoneBookings.length,
+        activeBookings: activeBookings.length,
+        totalRevenue,
+        vehicleTypes: zone.vehicleTypes
+      };
+    });
+
+    // Vehicle type distribution
+    const vehicleTypeDistribution = {};
+    parkingBookings.forEach(b => {
+      const type = b.vehicleType || 'Unknown';
+      vehicleTypeDistribution[type] = (vehicleTypeDistribution[type] || 0) + 1;
+    });
+
+    res.json({
+      parkingStats,
+      vehicleTypeDistribution: Object.entries(vehicleTypeDistribution).map(([type, count]) => ({
+        type,
+        count
+      }))
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`🚀 Data server running on http://localhost:${PORT}`);
 });

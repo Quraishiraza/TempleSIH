@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
@@ -10,7 +10,10 @@ import {
   ClockIcon,
   UsersIcon,
   CheckCircleIcon,
-  XMarkIcon
+  XMarkIcon,
+  SparklesIcon,
+  LightBulbIcon,
+  ExclamationTriangleIcon
 } from '@heroicons/react/24/outline';
 import templesData from '../data/temples.json';
 
@@ -28,6 +31,45 @@ const BookDarshan = () => {
   const [loading, setLoading] = useState(false);
   const [booking, setBooking] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [mlPredictions, setMlPredictions] = useState([]);
+  const [bestTime, setBestTime] = useState(null);
+  const [loadingML, setLoadingML] = useState(true);
+  const [selectedDatePrediction, setSelectedDatePrediction] = useState(null);
+
+  useEffect(() => {
+    if (temple && !loadingML) {
+      // Temporarily disabled to fix infinite loop
+      // fetchMLData();
+      setLoadingML(false);
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (formData.date && mlPredictions.length > 0) {
+      const prediction = mlPredictions.find(p => p.date === formData.date);
+      setSelectedDatePrediction(prediction);
+    } else {
+      setSelectedDatePrediction(null);
+    }
+  }, [formData.date, mlPredictions]);
+
+  const fetchMLData = async () => {
+    try {
+      const [forecastRes, bestTimeRes] = await Promise.all([
+        axios.post('http://localhost:5001/api/ml/predict', {
+          temple_id: temple.id,
+          days_ahead: 14
+        }),
+        axios.get(`http://localhost:5001/api/ml/best-time/${temple.id}`)
+      ]);
+      setMlPredictions(forecastRes.data.predictions);
+      setBestTime(bestTimeRes.data);
+    } catch (error) {
+      console.error('Error fetching ML data:', error);
+    } finally {
+      setLoadingML(false);
+    }
+  };
 
   if (!temple) {
     return (
@@ -149,6 +191,107 @@ const BookDarshan = () => {
           </div>
         </div>
       </div>
+
+      {/* AI Recommendations */}
+      {!loadingML && bestTime && (
+        <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl shadow-lg p-6 border-2 border-green-300">
+          <div className="flex items-start space-x-3">
+            <div className="bg-green-500 rounded-full p-2 mt-1">
+              <LightBulbIcon className="h-6 w-6 text-white" />
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center space-x-2 mb-3">
+                <SparklesIcon className="h-5 w-5 text-green-600" />
+                <h3 className="text-lg font-bold text-green-900">AI-Powered Smart Recommendation</h3>
+              </div>
+              <div className="bg-white rounded-lg p-4 border-2 border-green-200">
+                <p className="text-sm text-gray-700 mb-3">
+                  Based on historical data and crowd patterns, we recommend:
+                </p>
+                <div className="space-y-2">
+                  <p className="text-gray-900">
+                    <strong className="text-green-700">Best Day:</strong>{' '}
+                    <span className="font-bold text-green-900">{bestTime.best_day}</span>
+                  </p>
+                  <p className="text-gray-900">
+                    <strong className="text-green-700">Best Time:</strong>{' '}
+                    <span className="font-bold text-green-900">{bestTime.best_time_slot}</span>
+                  </p>
+                  <p className="text-sm text-gray-600 mt-2">
+                    Expected visitors: <strong>{bestTime.expected_visitors.toLocaleString()}</strong>
+                  </p>
+                  <p className="text-sm text-green-700 mt-3 italic">
+                    💡 {bestTime.reason}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Selected Date Prediction Alert */}
+      {selectedDatePrediction && (
+        <div className={`rounded-xl shadow-lg p-5 border-2 ${
+          selectedDatePrediction.crowd_level === 'LOW' 
+            ? 'bg-green-50 border-green-300' 
+            : selectedDatePrediction.crowd_level === 'MODERATE'
+            ? 'bg-yellow-50 border-yellow-300'
+            : 'bg-red-50 border-red-300'
+        }`}>
+          <div className="flex items-start space-x-3">
+            {selectedDatePrediction.crowd_level === 'HIGH' ? (
+              <ExclamationTriangleIcon className="h-6 w-6 text-red-600 mt-1" />
+            ) : (
+              <CheckCircleIcon className="h-6 w-6 text-green-600 mt-1" />
+            )}
+            <div className="flex-1">
+              <h4 className={`font-bold text-lg mb-2 ${
+                selectedDatePrediction.crowd_level === 'LOW' ? 'text-green-900' :
+                selectedDatePrediction.crowd_level === 'MODERATE' ? 'text-yellow-900' : 'text-red-900'
+              }`}>
+                Crowd Prediction for Selected Date
+              </h4>
+              <div className="space-y-2">
+                <p className="text-gray-700">
+                  <strong>Date:</strong> {new Date(selectedDatePrediction.date).toLocaleDateString('en-US', { 
+                    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+                  })}
+                </p>
+                <p className="text-gray-700">
+                  <strong>Expected Visitors:</strong>{' '}
+                  <span className="font-bold">{selectedDatePrediction.predicted_visitors.toLocaleString()}</span>
+                </p>
+                <div className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${
+                  selectedDatePrediction.crowd_level === 'LOW' ? 'bg-green-200 text-green-900' :
+                  selectedDatePrediction.crowd_level === 'MODERATE' ? 'bg-yellow-200 text-yellow-900' : 
+                  'bg-red-200 text-red-900'
+                }`}>
+                  {selectedDatePrediction.crowd_level} CROWD
+                </div>
+                {selectedDatePrediction.is_festival && (
+                  <div className="mt-3 bg-orange-100 border border-orange-300 rounded-lg p-3">
+                    <p className="text-orange-800 text-sm font-semibold flex items-center">
+                      <ExclamationTriangleIcon className="h-4 w-4 mr-2" />
+                      🎉 Festival Day - Expect significantly higher crowd than usual
+                    </p>
+                  </div>
+                )}
+                {selectedDatePrediction.crowd_level === 'HIGH' && (
+                  <p className="text-red-700 text-sm mt-3">
+                    ⚠️ Consider choosing a different date with lower crowd levels for a better experience.
+                  </p>
+                )}
+                {selectedDatePrediction.crowd_level === 'LOW' && (
+                  <p className="text-green-700 text-sm mt-3">
+                    ✅ Great choice! This date typically has lower crowd levels.
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Booking Form */}
       <div className="bg-white rounded-xl shadow-md p-6">

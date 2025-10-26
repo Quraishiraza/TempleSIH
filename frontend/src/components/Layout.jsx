@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 import {
   HomeIcon,
   BuildingLibraryIcon,
@@ -10,20 +12,23 @@ import {
   ArrowRightOnRectangleIcon,
   Bars3Icon,
   XMarkIcon,
+  ChartBarIcon,
 } from '@heroicons/react/24/outline';
 
 const Layout = () => {
   const { user, logout } = useAuth();
+  const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navigation = [
-    { name: 'Dashboard', href: '/', icon: HomeIcon },
-    { name: 'Temples', href: '/temples', icon: BuildingLibraryIcon },
-    { name: 'My Bookings', href: '/my-bookings', icon: CalendarDaysIcon },
-    { name: 'Parking', href: '/parking', icon: TruckIcon },
-    { name: 'Profile', href: '/profile', icon: UserCircleIcon },
+    { name: t('nav.dashboard'), href: '/', icon: HomeIcon },
+    { name: t('nav.temples'), href: '/temples', icon: BuildingLibraryIcon },
+    { name: t('nav.myBookings'), href: '/my-bookings', icon: CalendarDaysIcon },
+    { name: t('nav.parking'), href: '/parking', icon: TruckIcon },
+    { name: t('nav.analytics'), href: '/analytics', icon: ChartBarIcon },
+    { name: t('nav.profile'), href: '/profile', icon: UserCircleIcon },
   ];
 
   const handleLogout = () => {
@@ -77,8 +82,9 @@ const Layout = () => {
               })}
             </div>
 
-            {/* User Menu */}
+            {/* User Menu and Language Switcher */}
             <div className="hidden md:flex items-center space-x-4">
+              <LanguageSwitcher />
               <div className="text-right">
                 <p className="text-sm font-medium text-gray-900">{user?.name || 'User'}</p>
                 <p className="text-xs text-gray-500">{user?.email}</p>
@@ -88,7 +94,7 @@ const Layout = () => {
                 className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors"
               >
                 <ArrowRightOnRectangleIcon className="h-5 w-5" />
-                <span>Logout</span>
+                <span>{t('nav.logout')}</span>
               </button>
             </div>
 

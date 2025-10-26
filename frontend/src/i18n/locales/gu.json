@@ -1,0 +1,93 @@
+{
+  "app": {
+    "name": "ત્રિનેત્ર",
+    "tagline": "સ્માર્ટ મંદિર વ્યવસ્થાપન"
+  },
+  "nav": {
+    "dashboard": "ડેશબોર્ડ",
+    "temples": "મંદિરો",
+    "myBookings": "મારી બુકિંગ",
+    "parking": "પાર્કિંગ",
+    "analytics": "વિશ્લેષણ",
+    "profile": "પ્રોફાઇલ",
+    "logout": "લૉગ આઉટ"
+  },
+  "common": {
+    "welcome": "સ્વાગત છે",
+    "namaste": "નમસ્તે",
+    "back": "પાછળ",
+    "submit": "સબમિટ કરો",
+    "cancel": "રદ કરો",
+    "save": "સાચવો",
+    "loading": "લોડ થઈ રહ્યું છે...",
+    "error": "ભૂલ",
+    "success": "સફળતા"
+  },
+  "home": {
+    "title": "નમસ્તે, {{name}}!",
+    "subtitle": "તમારા ત્રિનેત્ર ડેશબોર્ડમાં આપનું સ્વાગત છે। તમારી આધ્યાત્મિક યાત્રાની સરળતાથી યોજના બનાવો।",
+    "totalTemples": "કુલ મંદિરો",
+    "activeBookings": "સક્રિય બુકિંગ",
+    "parkingBookings": "પાર્કિંગ બુકિંગ",
+    "totalVisits": "કુલ મુલાકાતો",
+    "currentOccupancy": "વર્તમાન મંદિર વ્યસ્તતા",
+    "crowdStatus": "ભીડ સ્થિતિ વિતરણ",
+    "quickActions": "ઝડપી ક્રિયાઓ",
+    "exploreTemples": "મંદિરો શોધો",
+    "browseAll": "બધા મંદિરો બ્રાઉઝ કરો",
+    "viewBookings": "બધી બુકિંગ જુઓ",
+    "bookParking": "પાર્કિંગ અનામત કરો",
+    "popularTemples": "લોકપ્રિય મંદિરો",
+    "mlForecast": "AI-સંચાલિત 7-દિવસ ભીડ આગાહી",
+    "mlPredictions": "ML આગાહીઓ",
+    "festivalAlert": "તહેવાર ચેતવણી",
+    "bestTimeToVisit": "મુલાકાત લેવાનો શ્રેષ્ઠ સમય",
+    "expectedVisitors": "અપેક્ષિત"
+  },
+  "temples": {
+    "title": "મંદિરો શોધો",
+    "subtitle": "પવિત્ર સ્થળોની શોધ કરો અને તમારી મુલાકાતની યોજના બનાવો",
+    "viewDetails": "વિગતો જુઓ",
+    "bookDarshan": "દર્શન બુક કરો",
+    "currentStatus": "વર્તમાન સ્થિતિ",
+    "occupancy": "વ્યસ્તતા",
+    "waitTime": "રાહ સમય",
+    "entryFee": "પ્રવેશ ફી"
+  },
+  "booking": {
+    "title": "દર્શન બુક કરો",
+    "details": "બુકિંગ વિગતો",
+    "selectDate": "તારીખ પસંદ કરો",
+    "selectTime": "સમય સ્લોટ પસંદ કરો",
+    "numberOfPeople": "લોકોની સંખ્યા",
+    "aiRecommendation": "AI-સંચાલિત સ્માર્ટ ભલામણ",
+    "basedOnData": "ઐતિહાસિક ડેટા અને ભીડ પેટર્નના આધારે, અમે ભલામણ કરીએ છીએ:",
+    "bestDay": "શ્રેષ્ઠ દિવસ",
+    "bestTime": "શ્રેષ્ઠ સમય",
+    "crowdPrediction": "પસંદ કરેલ તારીખ માટે ભીડ આગાહી",
+    "expectedVisitors": "અપેક્ષિત મુલાકાતીઓ",
+    "festivalDay": "તહેવારનો દિવસ - સામાન્ય કરતાં નોંધપાત્ર વધુ ભીડની અપેક્ષા",
+    "lowCrowd": "સરસ પસંદગી! આ તારીખે સામાન્ય રીતે ઓછી ભીડ હોય છે।",
+    "highCrowd": "વધુ સારા અનુભવ માટે ઓછી ભીડ સાથે અન્ય તારીખ પસંદ કરવાનું વિચારો।",
+    "confirmBooking": "બુકિંગની પુષ્ટિ કરો"
+  },
+  "analytics": {
+    "title": "વિશ્લેષણ ડેશબોર્ડ",
+    "subtitle": "મંદિર વ્યવસ્થાપન માટે વ્યાપક આંતરદૃષ્ટિ અને આંકડા",
+    "totalUsers": "કુલ વપરાશકર્તાઓ",
+    "totalBookings": "કુલ બુકિંગ",
+    "parkingBookings": "પાર્કિંગ બુકિંગ",
+    "totalRevenue": "કુલ આવક",
+    "bookingTrends": "7-દિવસ બુકિંગ વલણો",
+    "timeSlotDist": "સમય સ્લોટ વિતરણ",
+    "templeStats": "મંદિર-વાર આંકડા",
+    "crowdStatus": "વાસ્તવિક સમય ભીડ સ્થિતિ",
+    "parkingAnalytics": "પાર્કિંગ વિશ્લેષણ"
+  },
+  "crowd": {
+    "low": "ઓછી",
+    "moderate": "મધ્યમ",
+    "high": "ઉચ્ચ"
+  }
+}
+

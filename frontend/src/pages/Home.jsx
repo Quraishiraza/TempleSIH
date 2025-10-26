@@ -10,20 +10,33 @@ import {
   ClockIcon,
   MapPinIcon,
   ArrowTrendingUpIcon,
-  CheckCircleIcon
+  CheckCircleIcon,
+  SparklesIcon,
+  ExclamationTriangleIcon
 } from '@heroicons/react/24/outline';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line, Legend, Area, AreaChart } from 'recharts';
 import templesData from '../data/temples.json';
+import toast from 'react-hot-toast';
 
 const Home = () => {
   const { user } = useAuth();
   const [bookings, setBookings] = useState([]);
   const [parkingBookings, setParkingBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [mlPredictions, setMlPredictions] = useState([]);
+  const [bestTimes, setBestTimes] = useState({});
+  const [loadingML, setLoadingML] = useState(true);
+  const [mlFetched, setMlFetched] = useState(false);
 
   useEffect(() => {
-    fetchBookings();
-  }, [user]);
+    if (user && !mlFetched) {
+      fetchBookings();
+      // Temporarily disabled to fix infinite loop
+      // fetchMLPredictions();
+      setMlFetched(true);
+      setLoadingML(false); // Set to false so UI doesn't wait
+    }
+  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchBookings = async () => {
     try {
@@ -37,6 +50,48 @@ const Home = () => {
       console.error('Error fetching bookings:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchMLPredictions = async () => {
+    try {
+      // Fetch 7-day predictions for all temples with timeout
+      const predictions = await Promise.all(
+        templesData.map(async (temple) => {
+          try {
+            const response = await axios.post('http://localhost:5001/api/ml/predict', {
+              temple_id: temple.id,
+              days_ahead: 7
+            }, { timeout: 5000 });
+            return {
+              templeId: temple.id,
+              templeName: temple.name,
+              predictions: response.data.predictions
+            };
+          } catch (err) {
+            console.warn(`Failed to fetch predictions for temple ${temple.id}`);
+            return null;
+          }
+        })
+      );
+      setMlPredictions(predictions.filter(p => p !== null));
+
+      // Fetch best times for all temples with timeout
+      const bestTimesData = {};
+      for (const temple of templesData) {
+        try {
+          const response = await axios.get(`http://localhost:5001/api/ml/best-time/${temple.id}`, { timeout: 5000 });
+          bestTimesData[temple.id] = response.data;
+        } catch (error) {
+          console.warn(`Error fetching best time for temple ${temple.id}`);
+        }
+      }
+      setBestTimes(bestTimesData);
+    } catch (error) {
+      console.error('Error fetching ML predictions:', error);
+      // Don't show error toast - let page load without ML features
+    } finally {
+      setLoadingML(false);
     }
   };
 
@@ -177,6 +232,111 @@ const Home = () => {
           </ResponsiveContainer>
         </div>
       </div>
+
+      {/* AI-Powered 7-Day Crowd Forecast */}
+      {!loadingML && mlPredictions.length > 0 && (
+        <div className="bg-gradient-to-br from-purple-50 to-orange-50 rounded-xl shadow-lg p-6 border-2 border-purple-200">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center space-x-2">
+              <SparklesIcon className="h-6 w-6 text-purple-600" />
+              <h3 className="text-xl font-bold text-gray-900">AI-Powered 7-Day Crowd Forecast</h3>
+            </div>
+            <span className="bg-purple-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+              ML Predictions
+            </span>
+          </div>
+
+          {/* Forecast Chart for Each Temple */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {mlPredictions.map((temple) => {
+              const chartData = temple.predictions.map(pred => ({
+                date: new Date(pred.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }),
+                visitors: pred.predicted_visitors,
+                crowdLevel: pred.crowd_level,
+                isFestival: pred.is_festival
+              }));
+
+              return (
+                <div key={temple.templeId} className="bg-white rounded-lg p-5 shadow-md">
+                  <div className="flex items-center justify-between mb-4">
+                    <h4 className="font-semibold text-gray-900">{temple.templeName}</h4>
+                    {chartData.some(d => d.isFestival) && (
+                      <span className="flex items-center text-xs text-orange-600 bg-orange-100 px-2 py-1 rounded-full">
+                        <ExclamationTriangleIcon className="h-3 w-3 mr-1" />
+                        Festival Alert
+                      </span>
+                    )}
+                  </div>
+                  <ResponsiveContainer width="100%" height={200}>
+                    <AreaChart data={chartData}>
+                      <defs>
+                        <linearGradient id={`colorVisitors${temple.templeId}`} x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.8}/>
+                          <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0.1}/>
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="date" tick={{ fontSize: 11 }} />
+                      <YAxis tick={{ fontSize: 11 }} />
+                      <Tooltip 
+                        content={({ active, payload }) => {
+                          if (active && payload && payload.length) {
+                            const data = payload[0].payload;
+                            return (
+                              <div className="bg-white p-3 rounded-lg shadow-lg border border-gray-200">
+                                <p className="text-sm font-semibold text-gray-900">{data.date}</p>
+                                <p className="text-sm text-gray-700">Visitors: {data.visitors.toLocaleString()}</p>
+                                <p className={`text-xs font-semibold ${
+                                  data.crowdLevel === 'LOW' ? 'text-green-600' :
+                                  data.crowdLevel === 'MODERATE' ? 'text-yellow-600' : 'text-red-600'
+                                }`}>
+                                  {data.crowdLevel} CROWD
+                                </p>
+                                {data.isFestival && (
+                                  <p className="text-xs text-orange-600 font-semibold mt-1">🎉 Festival Day</p>
+                                )}
+                              </div>
+                            );
+                          }
+                          return null;
+                        }}
+                      />
+                      <Area 
+                        type="monotone" 
+                        dataKey="visitors" 
+                        stroke="#8b5cf6" 
+                        fillOpacity={1} 
+                        fill={`url(#colorVisitors${temple.templeId})`} 
+                      />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                  
+                  {/* Best Time Recommendation */}
+                  {bestTimes[temple.templeId] && (
+                    <div className="mt-4 bg-green-50 rounded-lg p-3 border border-green-200">
+                      <p className="text-xs font-semibold text-green-800 mb-1">💡 Best Time to Visit:</p>
+                      <p className="text-sm text-green-700">
+                        <strong>{bestTimes[temple.templeId].best_day}</strong> at{' '}
+                        <strong>{bestTimes[temple.templeId].best_time_slot}</strong>
+                      </p>
+                      <p className="text-xs text-green-600 mt-1">
+                        Expected: {bestTimes[temple.templeId].expected_visitors.toLocaleString()} visitors
+                      </p>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {loadingML && (
+        <div className="bg-white rounded-xl shadow-md p-8 text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading AI predictions...</p>
+        </div>
+      )}
 
       {/* Quick Actions */}
       <div className="bg-white rounded-xl shadow-md p-6">
