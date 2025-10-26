@@ -1,0 +1,111 @@
+[
+  {
+    "id": "p1",
+    "name": "Zone A - VIP Parking",
+    "templeId": "1",
+    "templeName": "Somnath Temple",
+    "totalSpots": 50,
+    "availableSpots": 12,
+    "pricePerHour": 50,
+    "vehicleTypes": ["Car", "SUV"],
+    "features": ["Covered", "24/7 Security", "CCTV"],
+    "distance": "50m from entrance"
+  },
+  {
+    "id": "p2",
+    "name": "Zone B - General Parking",
+    "templeId": "1",
+    "templeName": "Somnath Temple",
+    "totalSpots": 200,
+    "availableSpots": 85,
+    "pricePerHour": 20,
+    "vehicleTypes": ["Car", "SUV", "Motorcycle"],
+    "features": ["Open Air", "Security", "Well Lit"],
+    "distance": "200m from entrance"
+  },
+  {
+    "id": "p3",
+    "name": "Zone C - Two Wheeler",
+    "templeId": "1",
+    "templeName": "Somnath Temple",
+    "totalSpots": 300,
+    "availableSpots": 156,
+    "pricePerHour": 10,
+    "vehicleTypes": ["Motorcycle", "Scooter"],
+    "features": ["Covered", "Security"],
+    "distance": "150m from entrance"
+  },
+  {
+    "id": "p4",
+    "name": "Zone A - Premium Parking",
+    "templeId": "2",
+    "templeName": "Dwarkadhish Temple",
+    "totalSpots": 80,
+    "availableSpots": 5,
+    "pricePerHour": 60,
+    "vehicleTypes": ["Car", "SUV"],
+    "features": ["Covered", "Valet Service", "CCTV"],
+    "distance": "30m from entrance"
+  },
+  {
+    "id": "p5",
+    "name": "Zone B - Standard Parking",
+    "templeId": "2",
+    "templeName": "Dwarkadhish Temple",
+    "totalSpots": 250,
+    "availableSpots": 42,
+    "pricePerHour": 25,
+    "vehicleTypes": ["Car", "SUV", "Motorcycle"],
+    "features": ["Open Air", "24/7 Security"],
+    "distance": "180m from entrance"
+  },
+  {
+    "id": "p6",
+    "name": "Zone A - Main Parking",
+    "templeId": "3",
+    "templeName": "Ambaji Temple",
+    "totalSpots": 150,
+    "availableSpots": 98,
+    "pricePerHour": 30,
+    "vehicleTypes": ["Car", "SUV", "Motorcycle"],
+    "features": ["Covered", "Security", "CCTV"],
+    "distance": "100m from entrance"
+  },
+  {
+    "id": "p7",
+    "name": "Zone B - Budget Parking",
+    "templeId": "3",
+    "templeName": "Ambaji Temple",
+    "totalSpots": 200,
+    "availableSpots": 145,
+    "pricePerHour": 15,
+    "vehicleTypes": ["Car", "SUV", "Motorcycle"],
+    "features": ["Open Air", "Security"],
+    "distance": "250m from entrance"
+  },
+  {
+    "id": "p8",
+    "name": "Lower Parking - Ropeway Base",
+    "templeId": "4",
+    "templeName": "Pavagadh Temple",
+    "totalSpots": 180,
+    "availableSpots": 67,
+    "pricePerHour": 20,
+    "vehicleTypes": ["Car", "SUV", "Motorcycle", "Bus"],
+    "features": ["Open Air", "Security", "Near Ropeway"],
+    "distance": "At ropeway base station"
+  },
+  {
+    "id": "p9",
+    "name": "Upper Parking - Hill Top",
+    "templeId": "4",
+    "templeName": "Pavagadh Temple",
+    "totalSpots": 50,
+    "availableSpots": 18,
+    "pricePerHour": 40,
+    "vehicleTypes": ["Car", "SUV"],
+    "features": ["Limited Access", "Premium Location"],
+    "distance": "Near temple entrance"
+  }
+]
+

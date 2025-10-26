@@ -1,0 +1,96 @@
+[
+  {
+    "id": "1",
+    "name": "Somnath Temple",
+    "location": "Somnath, Gujarat",
+    "description": "One of the twelve Jyotirlinga shrines of Lord Shiva, Somnath Temple is a major pilgrimage site with rich historical significance.",
+    "image": "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=800",
+    "coordinates": {
+      "lat": 20.8880,
+      "lng": 70.4013
+    },
+    "crowdStatus": "moderate",
+    "currentOccupancy": 65,
+    "maxCapacity": 5000,
+    "openingHours": "6:00 AM - 9:00 PM",
+    "darshanTimings": [
+      "6:00 AM - 7:30 AM",
+      "12:00 PM - 6:00 PM",
+      "7:00 PM - 9:00 PM"
+    ],
+    "facilities": ["Wheelchair Access", "Prasad Counter", "Cloakroom", "Shoe Stand", "Restrooms"],
+    "entryFee": "Free",
+    "parkingAvailable": true,
+    "estimatedWaitTime": "45 mins"
+  },
+  {
+    "id": "2",
+    "name": "Dwarkadhish Temple",
+    "location": "Dwarka, Gujarat",
+    "description": "Also known as Jagat Mandir, this temple is dedicated to Lord Krishna and is one of the Char Dham pilgrimage sites.",
+    "image": "https://images.unsplash.com/photo-1548013146-72479768bada?w=800",
+    "coordinates": {
+      "lat": 22.2394,
+      "lng": 68.9678
+    },
+    "crowdStatus": "high",
+    "currentOccupancy": 85,
+    "maxCapacity": 4500,
+    "openingHours": "5:30 AM - 9:30 PM",
+    "darshanTimings": [
+      "5:30 AM - 1:00 PM",
+      "5:00 PM - 9:30 PM"
+    ],
+    "facilities": ["Guided Tours", "Audio Guide", "Prasad Counter", "Medical Aid", "Restrooms"],
+    "entryFee": "Free",
+    "parkingAvailable": true,
+    "estimatedWaitTime": "90 mins"
+  },
+  {
+    "id": "3",
+    "name": "Ambaji Temple",
+    "location": "Ambaji, Gujarat",
+    "description": "One of the 51 Shakti Peethas, Ambaji Temple is dedicated to Goddess Amba and is situated in the Aravalli hills.",
+    "image": "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800",
+    "coordinates": {
+      "lat": 24.3254,
+      "lng": 72.8477
+    },
+    "crowdStatus": "low",
+    "currentOccupancy": 35,
+    "maxCapacity": 3000,
+    "openingHours": "6:00 AM - 8:00 PM",
+    "darshanTimings": [
+      "6:00 AM - 12:00 PM",
+      "4:00 PM - 8:00 PM"
+    ],
+    "facilities": ["Wheelchair Access", "Prasad Counter", "Temple Shop", "Restrooms"],
+    "entryFee": "Free",
+    "parkingAvailable": true,
+    "estimatedWaitTime": "20 mins"
+  },
+  {
+    "id": "4",
+    "name": "Pavagadh Temple",
+    "location": "Pavagadh, Gujarat",
+    "description": "Kalika Mata Temple at Pavagadh Hill is a UNESCO World Heritage Site and an important Shakti Peetha.",
+    "image": "https://images.unsplash.com/photo-1605481960183-3ccf8dd8cf34?w=800",
+    "coordinates": {
+      "lat": 22.4851,
+      "lng": 73.5316
+    },
+    "crowdStatus": "moderate",
+    "currentOccupancy": 55,
+    "maxCapacity": 2500,
+    "openingHours": "5:00 AM - 10:00 PM",
+    "darshanTimings": [
+      "5:00 AM - 11:00 AM",
+      "4:00 PM - 10:00 PM"
+    ],
+    "facilities": ["Ropeway", "Trekking Path", "Prasad Counter", "Medical Aid", "Restrooms"],
+    "entryFee": "Free (Ropeway charges extra)",
+    "parkingAvailable": true,
+    "estimatedWaitTime": "35 mins"
+  }
+]
+
