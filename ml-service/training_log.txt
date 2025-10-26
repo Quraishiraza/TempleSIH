@@ -1,0 +1,22 @@
+Importing plotly failed. Interactive plots will not work.
+🎯 Training models for all temples...
+🎯 Training new model for temple 1...
+🎯 Training new model for temple 2...
+🎯 Training new model for temple 3...
+🎯 Training new model for temple 4...
+
+✅ Temple 1: error
+
+✅ Temple 2: error
+
+✅ Temple 3: error
+
+✅ Temple 4: error
+
+🔮 Generating predictions for Temple 1...
+Traceback (most recent call last):
+  File "/Users/rabdin/Desktop/sih01/ml-service/crowd_predictor.py", line 313, in <module>
+    predictions = predictor.predict('1', days_ahead=7)
+  File "/Users/rabdin/Desktop/sih01/ml-service/crowd_predictor.py", line 147, in predict
+    raise ValueError(f"Model not found for temple {temple_id}. Train first!")
+ValueError: Model not found for temple 1. Train first!

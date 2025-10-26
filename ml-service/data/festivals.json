@@ -1,0 +1,52 @@
+{
+  "2022": [
+    {"date": "2022-01-26", "name": "Republic Day", "impact": 1.3},
+    {"date": "2022-03-01", "name": "Mahashivratri", "impact": 3.0, "temples": ["1"]},
+    {"date": "2022-03-18", "name": "Holi", "impact": 1.5},
+    {"date": "2022-04-10", "name": "Ram Navami", "impact": 1.8},
+    {"date": "2022-08-15", "name": "Independence Day", "impact": 1.4},
+    {"date": "2022-08-19", "name": "Janmashtami", "impact": 3.5, "temples": ["2"]},
+    {"date": "2022-09-26", "name": "Navratri Start", "impact": 2.5, "temples": ["3"], "duration": 9},
+    {"date": "2022-10-05", "name": "Dussehra", "impact": 2.0},
+    {"date": "2022-10-24", "name": "Diwali", "impact": 2.2},
+    {"date": "2022-11-08", "name": "Kartik Purnima", "impact": 1.8}
+  ],
+  "2023": [
+    {"date": "2023-01-26", "name": "Republic Day", "impact": 1.3},
+    {"date": "2023-02-18", "name": "Mahashivratri", "impact": 3.0, "temples": ["1"]},
+    {"date": "2023-03-08", "name": "Holi", "impact": 1.5},
+    {"date": "2023-03-30", "name": "Ram Navami", "impact": 1.8},
+    {"date": "2023-08-15", "name": "Independence Day", "impact": 1.4},
+    {"date": "2023-09-07", "name": "Janmashtami", "impact": 3.5, "temples": ["2"]},
+    {"date": "2023-10-15", "name": "Navratri Start", "impact": 2.5, "temples": ["3"], "duration": 9},
+    {"date": "2023-10-24", "name": "Dussehra", "impact": 2.0},
+    {"date": "2023-11-12", "name": "Diwali", "impact": 2.2},
+    {"date": "2023-11-27", "name": "Kartik Purnima", "impact": 1.8}
+  ],
+  "2024": [
+    {"date": "2024-01-26", "name": "Republic Day", "impact": 1.3},
+    {"date": "2024-03-08", "name": "Mahashivratri", "impact": 3.0, "temples": ["1"]},
+    {"date": "2024-03-25", "name": "Holi", "impact": 1.5},
+    {"date": "2024-04-17", "name": "Ram Navami", "impact": 1.8},
+    {"date": "2024-08-15", "name": "Independence Day", "impact": 1.4},
+    {"date": "2024-08-26", "name": "Janmashtami", "impact": 3.5, "temples": ["2"]},
+    {"date": "2024-10-03", "name": "Navratri Start", "impact": 2.5, "temples": ["3"], "duration": 9},
+    {"date": "2024-10-12", "name": "Dussehra", "impact": 2.0},
+    {"date": "2024-11-01", "name": "Diwali", "impact": 2.2},
+    {"date": "2024-11-15", "name": "Kartik Purnima", "impact": 1.8}
+  ],
+  "2025": [
+    {"date": "2025-01-26", "name": "Republic Day", "impact": 1.3},
+    {"date": "2025-02-26", "name": "Mahashivratri", "impact": 3.0, "temples": ["1"]},
+    {"date": "2025-03-14", "name": "Holi", "impact": 1.5},
+    {"date": "2025-04-06", "name": "Ram Navami", "impact": 1.8},
+    {"date": "2025-08-15", "name": "Independence Day", "impact": 1.4},
+    {"date": "2025-08-16", "name": "Janmashtami", "impact": 3.5, "temples": ["2"]},
+    {"date": "2025-09-22", "name": "Navratri Start", "impact": 2.5, "temples": ["3"], "duration": 9},
+    {"date": "2025-10-02", "name": "Dussehra", "impact": 2.0},
+    {"date": "2025-10-20", "name": "Diwali", "impact": 2.2},
+    {"date": "2025-11-05", "name": "Kartik Purnima", "impact": 1.8},
+    {"date": "2025-11-10", "name": "Dev Diwali", "impact": 1.6}
+  ]
+}
+

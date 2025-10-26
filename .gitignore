@@ -3,7 +3,14 @@ node_modules/
 package-lock.json
 yarn.lock
 
-# Build outputs
+# Python
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
 dist/
 build/
 
@@ -34,4 +41,5 @@ coverage/
 
 # Misc
 .cache/
+/tmp/
 
