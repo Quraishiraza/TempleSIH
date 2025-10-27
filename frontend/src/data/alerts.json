@@ -1,0 +1,53 @@
+[
+  {
+    "id": "alert_1761520609805_wait_2",
+    "type": "long_wait",
+    "severity": "medium",
+    "templeId": "2",
+    "templeName": "Dwarkadhish Temple",
+    "message": "Long wait time at Dwarkadhish Temple: 90 mins",
+    "waitTime": "90 mins",
+    "timestamp": "2025-10-26T23:16:49.805Z",
+    "status": "acknowledged",
+    "acknowledgedBy": [],
+    "acknowledgedAt": "2025-10-27T11:11:34.581Z"
+  },
+  {
+    "id": "alert_1761563505936_wait_2",
+    "type": "long_wait",
+    "severity": "medium",
+    "templeId": "2",
+    "templeName": "Dwarkadhish Temple",
+    "message": "Long wait time at Dwarkadhish Temple: 90 mins",
+    "waitTime": "90 mins",
+    "timestamp": "2025-10-27T11:11:45.936Z",
+    "status": "resolved",
+    "acknowledgedBy": [],
+    "resolvedAt": "2025-10-27T11:11:49.708Z"
+  },
+  {
+    "id": "alert_1761563522059_wait_2",
+    "type": "long_wait",
+    "severity": "medium",
+    "templeId": "2",
+    "templeName": "Dwarkadhish Temple",
+    "message": "Long wait time at Dwarkadhish Temple: 90 mins",
+    "waitTime": "90 mins",
+    "timestamp": "2025-10-27T11:12:02.059Z",
+    "status": "active",
+    "acknowledgedBy": []
+  },
+  {
+    "id": "alert_yolo_zone1_threshold",
+    "type": "high_crowd",
+    "severity": "high",
+    "templeId": "1",
+    "templeName": "Main Entrance - Video 3",
+    "message": "Crowd threshold exceeded: 28 people detected (threshold: 21)",
+    "peopleCount": 28,
+    "threshold": 21,
+    "timestamp": "2025-10-27T21:30:00.000Z",
+    "status": "active",
+    "acknowledgedBy": []
+  }
+]

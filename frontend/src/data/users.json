@@ -14,5 +14,13 @@
     "phone": "9798255556",
     "password": "123456",
     "createdAt": "2025-10-26T22:03:26.390Z"
+  },
+  {
+    "id": "1761577256103",
+    "name": "John D",
+    "email": "j@gmail.com",
+    "phone": "9798255557",
+    "password": "qwerty",
+    "createdAt": "2025-10-27T15:00:56.103Z"
   }
 ]

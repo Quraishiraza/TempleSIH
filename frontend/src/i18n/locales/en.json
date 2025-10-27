@@ -8,7 +8,10 @@
     "temples": "Temples",
     "myBookings": "My Bookings",
     "parking": "Parking",
+    "liveMonitoring": "Live Monitoring",
     "analytics": "Analytics",
+    "alerts": "Alerts",
+    "emergency": "Emergency",
     "profile": "Profile",
     "logout": "Logout"
   },

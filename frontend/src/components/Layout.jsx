@@ -13,6 +13,9 @@ import {
   Bars3Icon,
   XMarkIcon,
   ChartBarIcon,
+  BellAlertIcon,
+  ExclamationTriangleIcon,
+  VideoCameraIcon,
 } from '@heroicons/react/24/outline';
 
 const Layout = () => {
@@ -27,7 +30,10 @@ const Layout = () => {
     { name: t('nav.temples'), href: '/temples', icon: BuildingLibraryIcon },
     { name: t('nav.myBookings'), href: '/my-bookings', icon: CalendarDaysIcon },
     { name: t('nav.parking'), href: '/parking', icon: TruckIcon },
+    { name: t('nav.liveMonitoring'), href: '/live-monitoring', icon: VideoCameraIcon },
     { name: t('nav.analytics'), href: '/analytics', icon: ChartBarIcon },
+    { name: t('nav.alerts'), href: '/alerts', icon: BellAlertIcon },
+    { name: t('nav.emergency'), href: '/emergency', icon: ExclamationTriangleIcon },
     { name: t('nav.profile'), href: '/profile', icon: UserCircleIcon },
   ];
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
@@ -36,13 +36,34 @@ const BookDarshan = () => {
   const [loadingML, setLoadingML] = useState(true);
   const [selectedDatePrediction, setSelectedDatePrediction] = useState(null);
 
+  const fetchMLData = useCallback(async () => {
+    if (!temple) return;
+    setLoadingML(true);
+    try {
+      const [forecastRes, bestTimeRes] = await Promise.all([
+        axios.post('http://localhost:5001/api/ml/predict', {
+          temple_id: temple.id,
+          days_ahead: 14
+        }, { timeout: 5000 }),
+        axios.get(`http://localhost:5001/api/ml/best-time/${temple.id}`, { timeout: 5000 })
+      ]);
+      setMlPredictions(forecastRes.data.predictions);
+      setBestTime(bestTimeRes.data);
+    } catch (error) {
+      console.error('Error fetching ML data:', error);
+      // Silently fail
+    } finally {
+      setLoadingML(false);
+    }
+  }, [temple]);
+
   useEffect(() => {
-    if (temple && !loadingML) {
-      // Temporarily disabled to fix infinite loop
+    if (temple) {
+      // Disabled ML to prevent infinite loop
       // fetchMLData();
       setLoadingML(false);
     }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [temple]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (formData.date && mlPredictions.length > 0) {
@@ -52,24 +73,6 @@ const BookDarshan = () => {
       setSelectedDatePrediction(null);
     }
   }, [formData.date, mlPredictions]);
-
-  const fetchMLData = async () => {
-    try {
-      const [forecastRes, bestTimeRes] = await Promise.all([
-        axios.post('http://localhost:5001/api/ml/predict', {
-          temple_id: temple.id,
-          days_ahead: 14
-        }),
-        axios.get(`http://localhost:5001/api/ml/best-time/${temple.id}`)
-      ]);
-      setMlPredictions(forecastRes.data.predictions);
-      setBestTime(bestTimeRes.data);
-    } catch (error) {
-      console.error('Error fetching ML data:', error);
-    } finally {
-      setLoadingML(false);
-    }
-  };
 
   if (!temple) {
     return (

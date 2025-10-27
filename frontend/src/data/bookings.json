@@ -12,5 +12,19 @@
     "userPhone": "9798255555",
     "status": "confirmed",
     "bookingDate": "2025-10-26T20:52:45.739Z"
+  },
+  {
+    "id": "1761572761664",
+    "userId": "1761511941635",
+    "templeId": "1",
+    "templeName": "Somnath Temple",
+    "date": "2025-10-31",
+    "timeSlot": "10:00 AM - 12:00 PM",
+    "numberOfPeople": 1,
+    "userName": "Ali Razaq",
+    "userEmail": "al1@gamil.com",
+    "userPhone": "9798255555",
+    "status": "confirmed",
+    "bookingDate": "2025-10-27T13:46:01.664Z"
   }
 ]

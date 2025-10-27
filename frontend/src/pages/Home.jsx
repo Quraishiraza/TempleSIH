@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
@@ -28,17 +28,8 @@ const Home = () => {
   const [loadingML, setLoadingML] = useState(true);
   const [mlFetched, setMlFetched] = useState(false);
 
-  useEffect(() => {
-    if (user && !mlFetched) {
-      fetchBookings();
-      // Temporarily disabled to fix infinite loop
-      // fetchMLPredictions();
-      setMlFetched(true);
-      setLoadingML(false); // Set to false so UI doesn't wait
-    }
-  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const fetchBookings = async () => {
+  const fetchBookings = useCallback(async () => {
+    if (!user) return;
     try {
       const [bookingsRes, parkingRes] = await Promise.all([
         axios.get(`http://localhost:3002/api/bookings?userId=${user.id}`),
@@ -51,9 +42,10 @@ const Home = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user]);
 
-  const fetchMLPredictions = async () => {
+  const fetchMLPredictions = useCallback(async () => {
+    setLoadingML(true);
     try {
       // Fetch 7-day predictions for all temples with timeout
       const predictions = await Promise.all(
@@ -93,7 +85,17 @@ const Home = () => {
     } finally {
       setLoadingML(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    if (user && !mlFetched) {
+      fetchBookings();
+      // Disabled ML predictions to prevent infinite loop
+      // fetchMLPredictions();
+      setMlFetched(true);
+      setLoadingML(false);
+    }
+  }, [user, mlFetched, fetchBookings]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const activeBookings = bookings.filter(b => b.status === 'confirmed');
   const activeParkingBookings = parkingBookings.filter(b => b.status === 'active');

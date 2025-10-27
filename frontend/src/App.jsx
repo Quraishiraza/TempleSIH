@@ -18,6 +18,9 @@ import BookParking from './pages/BookParking';
 import Profile from './pages/Profile';
 import MyBookings from './pages/MyBookings';
 import Analytics from './pages/Analytics';
+import Alerts from './pages/Alerts';
+import Emergency from './pages/Emergency';
+import LiveMonitoring from './pages/LiveMonitoring';
 
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
@@ -71,6 +74,9 @@ function AppRoutes() {
         <Route path="profile" element={<Profile />} />
         <Route path="my-bookings" element={<MyBookings />} />
         <Route path="analytics" element={<Analytics />} />
+        <Route path="alerts" element={<Alerts />} />
+        <Route path="emergency" element={<Emergency />} />
+        <Route path="live-monitoring" element={<LiveMonitoring />} />
       </Route>
     </Routes>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import {
   MapPinIcon,
@@ -27,32 +27,34 @@ const TempleDetails = () => {
   const [bestTime, setBestTime] = useState(null);
   const [loadingML, setLoadingML] = useState(true);
 
-  useEffect(() => {
-    if (temple && !loadingML) {
-      // Temporarily disabled to fix infinite loop  
-      // fetchMLData();
-      setLoadingML(false);
-    }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const fetchMLData = async () => {
+  const fetchMLData = useCallback(async () => {
+    if (!temple) return;
+    setLoadingML(true);
     try {
       const [forecastRes, bestTimeRes] = await Promise.all([
         axios.post('http://localhost:5001/api/ml/predict', {
           temple_id: temple.id,
           days_ahead: 7
-        }),
-        axios.get(`http://localhost:5001/api/ml/best-time/${temple.id}`)
+        }, { timeout: 5000 }),
+        axios.get(`http://localhost:5001/api/ml/best-time/${temple.id}`, { timeout: 5000 })
       ]);
       setMlForecast(forecastRes.data);
       setBestTime(bestTimeRes.data);
     } catch (error) {
       console.error('Error fetching ML data:', error);
-      toast.error('Could not load crowd predictions');
+      // Silently fail - don't show error toast
     } finally {
       setLoadingML(false);
     }
-  };
+  }, [temple]);
+
+  useEffect(() => {
+    if (temple) {
+      // Disabled ML to prevent infinite loop
+      // fetchMLData();
+      setLoadingML(false);
+    }
+  }, [temple]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!temple) {
     return (

@@ -432,6 +432,186 @@ app.get('/api/analytics/parking', async (req, res) => {
   }
 });
 
+// ==================== ALERT & EMERGENCY API ENDPOINTS ====================
+
+// Get all alerts
+app.get('/api/alerts', async (req, res) => {
+  try {
+    const alerts = await readJSON('alerts.json');
+    // Return recent alerts first
+    const sortedAlerts = alerts.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    res.json(sortedAlerts);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Get active alerts only
+app.get('/api/alerts/active', async (req, res) => {
+  try {
+    const alerts = await readJSON('alerts.json');
+    const activeAlerts = alerts.filter(a => a.status === 'active');
+    res.json(activeAlerts.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)));
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Create new alert (threshold-based or manual)
+app.post('/api/alerts', async (req, res) => {
+  try {
+    const alerts = await readJSON('alerts.json');
+    const newAlert = {
+      id: `alert_${Date.now()}`,
+      timestamp: new Date().toISOString(),
+      status: 'active',
+      acknowledgedBy: [],
+      ...req.body
+    };
+    alerts.push(newAlert);
+    await writeJSON('alerts.json', alerts);
+    res.status(201).json(newAlert);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Update alert (acknowledge, resolve, etc.)
+app.patch('/api/alerts/:alertId', async (req, res) => {
+  try {
+    const { alertId } = req.params;
+    const alerts = await readJSON('alerts.json');
+    const alertIndex = alerts.findIndex(a => a.id === alertId);
+    
+    if (alertIndex === -1) {
+      return res.status(404).json({ error: 'Alert not found' });
+    }
+
+    alerts[alertIndex] = { ...alerts[alertIndex], ...req.body };
+    await writeJSON('alerts.json', alerts);
+    res.json(alerts[alertIndex]);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Check for threshold violations and generate alerts
+app.post('/api/alerts/check-thresholds', async (req, res) => {
+  try {
+    const temples = await readJSON('temples.json');
+    const alerts = await readJSON('alerts.json');
+    const newAlerts = [];
+
+    for (const temple of temples) {
+      // High crowd alert
+      if (temple.currentOccupancy > 85) {
+        const existingAlert = alerts.find(a => 
+          a.templeId === temple.id && 
+          a.type === 'high_crowd' && 
+          a.status === 'active'
+        );
+        
+        if (!existingAlert) {
+          const alert = {
+            id: `alert_${Date.now()}_${temple.id}`,
+            type: 'high_crowd',
+            severity: temple.currentOccupancy > 95 ? 'critical' : 'high',
+            templeId: temple.id,
+            templeName: temple.name,
+            message: `High crowd alert at ${temple.name}! Current occupancy: ${temple.currentOccupancy}%`,
+            currentOccupancy: temple.currentOccupancy,
+            timestamp: new Date().toISOString(),
+            status: 'active',
+            acknowledgedBy: []
+          };
+          newAlerts.push(alert);
+          alerts.push(alert);
+        }
+      }
+
+      // Long wait time alert
+      const waitMinutes = parseInt(temple.estimatedWaitTime);
+      if (waitMinutes > 60) {
+        const existingAlert = alerts.find(a => 
+          a.templeId === temple.id && 
+          a.type === 'long_wait' && 
+          a.status === 'active'
+        );
+        
+        if (!existingAlert) {
+          const alert = {
+            id: `alert_${Date.now()}_wait_${temple.id}`,
+            type: 'long_wait',
+            severity: 'medium',
+            templeId: temple.id,
+            templeName: temple.name,
+            message: `Long wait time at ${temple.name}: ${temple.estimatedWaitTime}`,
+            waitTime: temple.estimatedWaitTime,
+            timestamp: new Date().toISOString(),
+            status: 'active',
+            acknowledgedBy: []
+          };
+          newAlerts.push(alert);
+          alerts.push(alert);
+        }
+      }
+    }
+
+    if (newAlerts.length > 0) {
+      await writeJSON('alerts.json', alerts);
+    }
+
+    res.json({ newAlerts, totalActiveAlerts: alerts.filter(a => a.status === 'active').length });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Get emergency contacts
+app.get('/api/emergency-contacts', async (req, res) => {
+  try {
+    const contacts = await readJSON('emergency-contacts.json');
+    res.json(contacts);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Send SOS alert
+app.post('/api/emergency/sos', async (req, res) => {
+  try {
+    const alerts = await readJSON('alerts.json');
+    const sosAlert = {
+      id: `sos_${Date.now()}`,
+      type: 'sos',
+      severity: 'critical',
+      userId: req.body.userId,
+      userName: req.body.userName,
+      location: req.body.location,
+      templeId: req.body.templeId,
+      templeName: req.body.templeName,
+      message: req.body.message || 'Emergency SOS alert received',
+      timestamp: new Date().toISOString(),
+      status: 'active',
+      acknowledgedBy: [],
+      userContact: req.body.userContact
+    };
+    
+    alerts.push(sosAlert);
+    await writeJSON('alerts.json', alerts);
+    
+    // In production, this would trigger SMS/push notifications to authorities
+    console.log('🚨 SOS ALERT:', sosAlert);
+    
+    res.status(201).json({ 
+      message: 'SOS alert sent successfully. Help is on the way!',
+      alert: sosAlert 
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`🚀 Data server running on http://localhost:${PORT}`);
 });

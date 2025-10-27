@@ -1,0 +1,60 @@
+[
+  {
+    "id": "ec1",
+    "name": "Police Control Room",
+    "phone": "100",
+    "type": "police",
+    "available24x7": true
+  },
+  {
+    "id": "ec2",
+    "name": "Ambulance",
+    "phone": "108",
+    "type": "medical",
+    "available24x7": true
+  },
+  {
+    "id": "ec3",
+    "name": "Fire Brigade",
+    "phone": "101",
+    "type": "fire",
+    "available24x7": true
+  },
+  {
+    "id": "ec4",
+    "name": "Temple Security",
+    "phone": "+91-9876543210",
+    "type": "security",
+    "available24x7": true
+  },
+  {
+    "id": "ec5",
+    "name": "Temple Administration",
+    "phone": "+91-9876543211",
+    "type": "admin",
+    "available24x7": false,
+    "timings": "9:00 AM - 6:00 PM"
+  },
+  {
+    "id": "ec6",
+    "name": "Tourist Helpline",
+    "phone": "1363",
+    "type": "tourist",
+    "available24x7": true
+  },
+  {
+    "id": "ec7",
+    "name": "Women Helpline",
+    "phone": "1091",
+    "type": "women",
+    "available24x7": true
+  },
+  {
+    "id": "ec8",
+    "name": "Disaster Management",
+    "phone": "108",
+    "type": "disaster",
+    "available24x7": true
+  }
+]
+
