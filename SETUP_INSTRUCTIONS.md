@@ -1,511 +1,541 @@
-# 🕉️ Trinetra - Complete Setup Instructions
+# 🚀 Trinetra - Setup Instructions
 
-## 📦 What Has Been Created
+Complete guide to set up and run the **Trinetra Smart Temple Management System** on your machine.
 
-A complete, production-ready web application with:
-
-### ✅ Frontend Application
-- **Location:** `/Users/rabdin/Desktop/sih01/frontend/`
-- **Technology:** React 18 + Vite + TailwindCSS
-- **Port:** 3000
-- **Pages:** 10 fully functional pages
-- **Features:** Authentication, Temple Booking, Parking System, Dashboard
-
-### ✅ Backend Data Server
-- **Location:** `/Users/rabdin/Desktop/sih01/data-server/`
-- **Technology:** Node.js + Express
-- **Port:** 3002
-- **Endpoints:** 10 REST API endpoints
-- **Storage:** JSON file-based system
-
-### ✅ Documentation
-- README.md - Complete project documentation
-- QUICKSTART.md - Quick start guide
-- SETUP_INSTRUCTIONS.md - This file
-
-### ✅ Helper Scripts
-- `setup.sh` - One-command installation
-- `start-backend.sh` - Start data server
-- `start-frontend.sh` - Start frontend
+**Built for Smart India Hackathon 2025 - Problem Statement #25165**
 
 ---
 
-## 🚀 Installation & Running
+## 📋 Table of Contents
 
-### Step 1: Install Dependencies (First Time Only)
+1. [System Requirements](#system-requirements)
+2. [Quick Start](#quick-start)
+3. [Detailed Setup](#detailed-setup)
+4. [Running the Application](#running-the-application)
+5. [Accessing the Application](#accessing-the-application)
+6. [Troubleshooting](#troubleshooting)
+7. [Project Structure](#project-structure)
 
-Open Terminal and run:
+---
+
+## 🖥️ System Requirements
+
+### Required Software:
+- **Node.js**: v18 or higher ([Download](https://nodejs.org/))
+- **Python**: v3.10 or higher ([Download](https://www.python.org/))
+- **Git**: Latest version ([Download](https://git-scm.com/))
+
+### Operating System:
+- macOS, Windows, or Linux
+
+### Hardware:
+- **RAM**: 4GB minimum, 8GB recommended
+- **Storage**: 2GB free space
+- **Processor**: Dual-core or better
+
+---
+
+## ⚡ Quick Start
 
 ```bash
-cd /Users/rabdin/Desktop/sih01
+# 1. Clone the repository
+git clone https://github.com/Quraishiraza/TempleSIH.git
+cd TempleSIH
+
+# 2. Checkout feature1 branch
+git checkout feature1
+
+# 3. Run setup script (Unix/Mac)
+chmod +x setup.sh
 ./setup.sh
+
+# For Windows, follow Detailed Setup below
 ```
-
-This will install all required npm packages for both frontend and backend.
-
-**Expected time:** 2-3 minutes
 
 ---
 
-### Step 2: Start the Application
+## 🔧 Detailed Setup
 
-You need to open **TWO terminal windows** and run both servers.
-
-#### Terminal Window 1 - Backend Server
+### Step 1: Clone the Repository
 
 ```bash
-cd /Users/rabdin/Desktop/sih01
-./start-backend.sh
+# Clone from GitHub
+git clone https://github.com/Quraishiraza/TempleSIH.git
+
+# Navigate to project directory
+cd TempleSIH
+
+# Switch to feature1 branch (contains all latest features)
+git checkout feature1
 ```
 
-**You should see:**
-```
-🚀 Data server running on http://localhost:3002
-```
+---
 
-**✅ Keep this terminal window open!**
-
-#### Terminal Window 2 - Frontend Server
+### Step 2: Frontend Setup (React + Vite)
 
 ```bash
-cd /Users/rabdin/Desktop/sih01
-./start-frontend.sh
+# Navigate to frontend directory
+cd frontend
+
+# Install dependencies
+npm install
+
+# Go back to root
+cd ..
 ```
 
-**You should see:**
+**Expected output:** `added XXX packages` without errors
+
+---
+
+### Step 3: Data Server Setup (Node.js)
+
+```bash
+# Navigate to data-server directory
+cd data-server
+
+# Install dependencies
+npm install
+
+# Go back to root
+cd ..
+```
+
+---
+
+### Step 4: ML Service Setup (Python)
+
+```bash
+# Navigate to ml-service directory
+cd ml-service
+
+# Create virtual environment
+python3 -m venv venv
+
+# Activate virtual environment
+# On Mac/Linux:
+source venv/bin/activate
+# On Windows:
+# venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Deactivate virtual environment
+deactivate
+
+# Go back to root
+cd ..
+```
+
+---
+
+### Step 5: YOLO Service Setup (Python)
+
+```bash
+# Navigate to yolo-service directory
+cd yolo-service
+
+# Create virtual environment
+python3 -m venv venv
+
+# Activate virtual environment
+# On Mac/Linux:
+source venv/bin/activate
+# On Windows:
+# venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Deactivate virtual environment
+deactivate
+
+# Go back to root
+cd ..
+```
+
+**Note:** First run will download YOLOv8 model (~6MB)
+
+---
+
+## 🎬 Running the Application
+
+You need to run **4 services** in separate terminals:
+
+### Terminal 1: Frontend (React)
+
+```bash
+cd frontend
+npm run dev
+```
+
+**Expected output:**
 ```
 VITE v5.x.x  ready in XXX ms
 
 ➜  Local:   http://localhost:3000/
 ```
 
-**✅ Keep this terminal window open!**
-
 ---
 
-### Step 3: Access the Application
+### Terminal 2: Data Server (Node.js)
 
-1. Open your web browser
-2. Navigate to: **http://localhost:3000**
-3. You'll see the beautiful login page with gradient background and 🕉️ symbol
-
----
-
-## 🎯 Using the Application
-
-### First Time - Create Account
-
-1. Click "**Sign up for free**" on the login page
-2. Fill in your details:
-   - Full Name
-   - Email
-   - Phone Number
-   - Password
-3. Click "**Create Account**"
-4. You'll be automatically logged in
-
-### Dashboard Overview
-
-After login, you'll see:
-- **Welcome banner** with your name
-- **Statistics cards** (Total Temples, Active Bookings, etc.)
-- **Charts** showing occupancy and crowd distribution
-- **Quick actions** for common tasks
-- **Popular temples** showcase
-
-### Main Features
-
-#### 1. 🏛️ Explore Temples
-- Click "**Temples**" in navigation
-- Browse 4 pre-loaded Gujarat temples
-- See real-time crowd status (Low/Moderate/High)
-- View occupancy percentages
-- Click "**View Details**" for more info
-
-#### 2. 📅 Book Darshan
-- From temple page, click "**Book Now**"
-- Select date and time slot
-- Choose number of people
-- Click "**Confirm Booking**"
-- **Get instant QR code!** (downloadable)
-
-#### 3. 🅿️ Book Parking
-- Click "**Parking**" in navigation
-- Browse 9 parking zones
-- See real-time availability
-- Select a zone with available spots
-- Enter vehicle details
-- Confirm booking
-- **Get parking QR code!**
-
-#### 4. 📋 My Bookings
-- Click "**My Bookings**" in navigation
-- Toggle between Darshan & Parking tabs
-- View all bookings
-- Click "**View QR**" to see QR code
-- Download QR codes
-- Cancel bookings if needed
-
-#### 5. 👤 Profile
-- Click "**Profile**" in navigation
-- View your information
-- Click "**Edit Profile**" to update details
-- Save changes
-
----
-
-## 🎨 Design Highlights
-
-### Modern UI Features
-- ✨ Gradient backgrounds (Orange & Purple theme)
-- 📱 Fully responsive design
-- 🎭 Smooth animations and transitions
-- 🎨 Color-coded status indicators
-- 📊 Interactive charts (Recharts)
-- 🗺️ Interactive maps (Leaflet)
-- 🔔 Toast notifications
-- 📱 QR code generation
-
-### User Experience
-- Intuitive navigation
-- Clear visual hierarchy
-- Helpful empty states
-- Loading indicators
-- Form validations
-- Confirmation modals
-- Error handling
-
----
-
-## 📊 Pre-loaded Data
-
-### Temples (4)
-1. **Somnath Temple** - Moderate crowd (65%)
-2. **Dwarkadhish Temple** - High crowd (85%)
-3. **Ambaji Temple** - Low crowd (35%)
-4. **Pavagadh Temple** - Moderate crowd (55%)
-
-### Parking Zones (9)
-- Multiple zones per temple
-- Different price ranges (₹10-₹60/hour)
-- Various vehicle types supported
-- Real-time availability tracking
-
----
-
-## 🛠️ Technical Details
-
-### Frontend Tech Stack
-```
-React 18.2.0
-Vite 5.0.8
-TailwindCSS 3.3.6
-React Router 6.20.0
-Axios 1.6.2
-Recharts 2.10.3
-QRCode.react 3.1.0
-React Leaflet 4.2.1
-React Hot Toast 2.4.1
-Heroicons 2.1.1
+```bash
+cd data-server
+node server.js
 ```
 
-### API Endpoints
+**Expected output:**
 ```
-GET  /api/health
-GET  /api/users
-POST /api/users
-GET  /api/bookings
-POST /api/bookings
-PATCH /api/bookings/:id/cancel
-GET  /api/parking-bookings
-GET  /api/parking-bookings/user/:userId
-POST /api/parking-bookings
-PATCH /api/parking-bookings/:id/cancel
-```
-
-### Data Files
-```
-frontend/src/data/
-├── users.json              (User accounts)
-├── bookings.json           (Darshan bookings)
-├── parking-bookings.json   (Parking bookings)
-├── temples.json            (Temple data)
-└── parking-zones.json      (Parking zones)
+✅ Data Server running on http://localhost:5001
 ```
 
 ---
 
-## 🐛 Troubleshooting
+### Terminal 3: ML Service (Python)
 
-### Issue: Port 3000 already in use
+```bash
+cd ml-service
+source venv/bin/activate  # Mac/Linux
+# OR
+# venv\Scripts\activate  # Windows
+
+python app.py
+```
+
+**Expected output:**
+```
+🚀 TRINETRA - ML PREDICTION SERVICE
+✅ Server running on http://0.0.0.0:5003
+```
+
+---
+
+### Terminal 4: YOLO Service (Python)
+
+```bash
+cd yolo-service
+source venv/bin/activate  # Mac/Linux
+# OR
+# venv\Scripts\activate  # Windows
+
+python app_video3.py
+```
+
+**Expected output:**
+```
+🚀 TRINETRA - YOLO SERVICE (Real Video 3)
+✅ YOLO model loaded successfully
+✅ Video opened: temple_crowd_3.mp4
+✅ Server running on http://0.0.0.0:5002
+```
+
+---
+
+## 🌐 Accessing the Application
+
+Once all 4 services are running:
+
+### Main Application
+```
+http://localhost:3000
+```
+
+### Login Credentials
+```
+Email: al1@gamil.com
+Password: password
+```
+
+### Available Pages:
+- **Home Dashboard**: `/`
+- **Temple Discovery**: `/temples`
+- **Book Darshan**: `/book-darshan/:id`
+- **Smart Parking**: `/parking`
+- **Live Monitoring**: `/live-monitoring` ⭐ (YOLO Video)
+- **Analytics Dashboard**: `/analytics` ⭐
+- **Alerts Dashboard**: `/alerts` ⭐ (YOLO Alerts)
+- **Emergency & Safety**: `/emergency` ⭐
+- **User Profile**: `/profile`
+
+⭐ = New features with AI/ML
+
+---
+
+## 🎯 Key Features to Demo
+
+### 1. **Live Monitoring** (`/live-monitoring`)
+- Real-time YOLO crowd detection
+- Uses `temple_crowd_3.mp4` video
+- Green/Red bounding boxes around people
+- People count: 20-26 (varies by frame)
+- Alert threshold: 21 people
+- Auto-refresh every 1.5 seconds
+
+### 2. **Alerts Dashboard** (`/alerts`)
+- Shows YOLO crowd alerts
+- Real-time updates
+- Alert when crowd > 21 people
+- Acknowledge/Resolve functionality
+
+### 3. **Analytics Dashboard** (`/analytics`)
+- Crowd flow visualization
+- Historical trends
+- Peak hours analysis
+- Temple-wise statistics
+
+### 4. **Multilingual Support**
+- English, Hindi, Gujarati
+- Language switcher in top-right corner
+
+---
+
+## 🔧 Troubleshooting
+
+### Issue 1: Port Already in Use
+
+**Error:** `EADDRINUSE: address already in use :::3000`
 
 **Solution:**
 ```bash
-# Find process using port 3000
-lsof -ti:3000
+# Find process using the port
+lsof -ti:3000  # Replace 3000 with your port
 
 # Kill the process
-kill -9 $(lsof -ti:3000)
+kill -9 <PID>
+
+# Or kill all on specific port
+lsof -ti:3000 | xargs kill -9
 ```
 
-### Issue: Port 3002 already in use
+---
+
+### Issue 2: YOLO Service Not Working
+
+**Error:** `Failed to connect to YOLO service`
 
 **Solution:**
 ```bash
-# Find and kill process
-kill -9 $(lsof -ti:3002)
+# Check if service is running
+lsof -ti:5002
+
+# If not running, restart:
+cd yolo-service
+source venv/bin/activate
+python app_video3.py
 ```
 
-### Issue: npm install fails
+---
+
+### Issue 3: Python Dependencies Failed
+
+**Error:** `error: externally-managed-environment`
 
 **Solution:**
 ```bash
-# Clear npm cache
-npm cache clean --force
+# Use virtual environment (already in setup)
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
 
-# Try install again
+---
+
+### Issue 4: Frontend Not Loading
+
+**Solution:**
+```bash
+# Clear cache and reinstall
 cd frontend
+rm -rf node_modules package-lock.json
 npm install
-
-cd ../data-server
-npm install
+npm run dev
 ```
 
-### Issue: Cannot connect to backend
+---
 
-**Checklist:**
-1. ✅ Is backend server running? (Terminal 1)
-2. ✅ Is it running on port 3002?
-3. ✅ Check http://localhost:3002/api/health
-4. ✅ Check browser console for errors
+### Issue 5: Video Not Playing
 
-### Issue: Page not loading
+**Possible Causes:**
+- YOLO service not running
+- Video files missing
+- Browser cache
 
 **Solution:**
-1. Hard refresh: `Cmd + Shift + R` (Mac) or `Ctrl + Shift + R` (Windows)
-2. Clear browser cache
-3. Try incognito/private window
-4. Check both servers are running
+```bash
+# Check video files exist
+ls -lh yolo-service/videos/
+
+# Restart YOLO service
+cd yolo-service
+source venv/bin/activate
+python app_video3.py
+
+# Hard refresh browser: Cmd+Shift+R (Mac) or Ctrl+Shift+R (Windows)
+```
 
 ---
 
-## 📱 Browser Testing
+## 📁 Project Structure
 
-### Recommended Browsers
-- ✅ Google Chrome (Best experience)
-- ✅ Mozilla Firefox
-- ✅ Safari (Mac)
-- ✅ Microsoft Edge
-
-### Mobile Responsive
-- Works on all screen sizes
-- Tested on iPhone, iPad, Android
-- Responsive navigation menu
-
----
-
-## 🎬 Demo Walkthrough
-
-### Scenario: Book a Temple Visit
-
-1. **Login/Signup**
-   - Create account with your details
-
-2. **View Dashboard**
-   - See welcome message
-   - Check temple statistics
-   - View crowd charts
-
-3. **Browse Temples**
-   - Click "Temples" in menu
-   - Search for "Somnath"
-   - View crowd status (Moderate - 65%)
-
-4. **View Temple Details**
-   - Click "View Details"
-   - See temple image, location
-   - Check timings and facilities
-   - View on interactive map
-
-5. **Book Darshan**
-   - Click "Book Darshan"
-   - Select tomorrow's date
-   - Choose "6:00 AM - 8:00 AM"
-   - Enter 2 people
-   - Confirm booking
-
-6. **Get QR Code**
-   - See confirmation modal
-   - View QR code
-   - Download QR code image
-   - Note booking ID
-
-7. **Book Parking**
-   - Go to Parking page
-   - Search for Somnath zones
-   - Select "Zone A - VIP Parking"
-   - Enter vehicle details
-   - Confirm booking
-   - Get parking QR code
-
-8. **Manage Bookings**
-   - Go to "My Bookings"
-   - View all bookings
-   - Check booking status
-   - Download QR codes
-   - Cancel if needed
-
-9. **Update Profile**
-   - Go to Profile
-   - Click "Edit Profile"
-   - Update phone number
-   - Save changes
+```
+TempleSIH/
+├── frontend/                 # React + Vite frontend
+│   ├── src/
+│   │   ├── pages/           # All page components
+│   │   ├── components/      # Reusable components
+│   │   ├── data/           # JSON data files
+│   │   └── i18n/           # Translations (EN/HI/GU)
+│   └── package.json
+│
+├── data-server/             # Node.js Express backend
+│   ├── server.js           # Main server file
+│   └── package.json
+│
+├── ml-service/              # Python ML prediction service
+│   ├── app.py              # Flask API
+│   ├── crowd_predictor.py  # ML predictor
+│   ├── requirements.txt
+│   └── venv/               # Virtual environment
+│
+├── yolo-service/            # Python YOLO detection service
+│   ├── app_video3.py       # Main service (use this)
+│   ├── yolo_detector.py    # YOLO detection logic
+│   ├── video_processor.py  # Video handling
+│   ├── config.py           # Configuration
+│   ├── requirements.txt
+│   ├── videos/             # Video files
+│   │   └── temple_crowd_3.mp4
+│   └── venv/               # Virtual environment
+│
+├── SETUP_INSTRUCTIONS.md    # This file
+├── YOLO_SETUP_GUIDE.md     # YOLO-specific guide
+└── README.md               # Project overview
+```
 
 ---
 
-## 🎯 Testing Checklist
+## 🎨 Technology Stack
 
-### ✅ Authentication
-- [ ] Sign up with new account
-- [ ] Login with credentials
-- [ ] Logout functionality
-- [ ] Stay logged in on refresh
+### Frontend:
+- **React 18** - UI library
+- **Vite** - Build tool
+- **TailwindCSS** - Styling
+- **React Router** - Navigation
+- **Axios** - HTTP client
+- **Recharts** - Data visualization
+- **React i18next** - Internationalization
 
-### ✅ Temple Features
-- [ ] Browse all temples
-- [ ] Search temples
-- [ ] Filter by crowd level
-- [ ] View temple details
-- [ ] See interactive map
+### Backend:
+- **Node.js** - Data server
+- **Express** - Web framework
+- **Python Flask** - ML & YOLO services
 
-### ✅ Booking Features
-- [ ] Book darshan
-- [ ] Select date/time
-- [ ] Generate QR code
-- [ ] Download QR code
-- [ ] View booking history
-- [ ] Cancel booking
-
-### ✅ Parking Features
-- [ ] View parking zones
-- [ ] Check availability
-- [ ] Book parking spot
-- [ ] Enter vehicle details
-- [ ] Generate parking QR
-- [ ] View parking bookings
-
-### ✅ Profile Features
-- [ ] View profile
-- [ ] Edit information
-- [ ] Update phone number
-- [ ] See account stats
+### AI/ML:
+- **YOLOv8n** - Person detection
+- **OpenCV** - Video processing
+- **NumPy** - Numerical operations
+- **SimpleCrowdPredictor** - Crowd prediction
 
 ---
 
-## 📸 Screenshots Guide
+## 🚀 Quick Commands Reference
 
-### Key Pages to See:
+### Check All Services Running:
+```bash
+# Check ports
+lsof -ti:3000  # Frontend
+lsof -ti:5001  # Data Server
+lsof -ti:5002  # YOLO Service
+lsof -ti:5003  # ML Service
+```
 
-1. **Login Page** - Gradient background with 🕉️
-2. **Dashboard** - Charts and statistics
-3. **Temples** - Grid of temple cards
-4. **Temple Details** - Full info with map
-5. **Book Darshan** - Form with QR modal
-6. **Parking** - Zones with availability
-7. **My Bookings** - Tabbed interface
-8. **Profile** - User information
+### Stop All Services:
+```bash
+# Kill all services
+lsof -ti:3000 | xargs kill -9
+lsof -ti:5001 | xargs kill -9
+lsof -ti:5002 | xargs kill -9
+lsof -ti:5003 | xargs kill -9
+```
+
+### Restart Everything:
+```bash
+# Terminal 1
+cd frontend && npm run dev
+
+# Terminal 2
+cd data-server && node server.js
+
+# Terminal 3
+cd ml-service && source venv/bin/activate && python app.py
+
+# Terminal 4
+cd yolo-service && source venv/bin/activate && python app_video3.py
+```
 
 ---
 
-## 🚀 Next Steps
+## 📊 Service Ports
 
-### For Demo/Presentation
-1. Create sample bookings
-2. Take screenshots
-3. Prepare demo script
-4. Test all features
+| Service | Port | URL |
+|---------|------|-----|
+| Frontend | 3000 | http://localhost:3000 |
+| Data Server | 5001 | http://localhost:5001 |
+| YOLO Service | 5002 | http://localhost:5002 |
+| ML Service | 5003 | http://localhost:5003 |
 
-### For Development
-1. Add more temples
-2. Implement real-time updates
-3. Add payment gateway
-4. Integrate YOLO for crowd detection
-5. Add admin dashboard
+---
+
+## 🎯 For Hackathon Demo
+
+### Before Demo:
+1. ✅ Ensure all 4 services are running
+2. ✅ Login with credentials
+3. ✅ Open Live Monitoring in one tab
+4. ✅ Open Alerts Dashboard in another tab
+5. ✅ Test language switcher
+
+### Key Demo Points:
+1. **Real-time Detection**: Show `/live-monitoring` with video
+2. **Alert System**: When count > 21, alert appears
+3. **Analytics**: Show crowd trends at `/analytics`
+4. **Multilingual**: Switch languages to show accessibility
+5. **Emergency**: Show emergency contacts at `/emergency`
 
 ---
 
 ## 📞 Support
 
-### If you encounter any issues:
-
-1. Check both servers are running
-2. Verify http://localhost:3002/api/health returns OK
-3. Check browser console for errors
-4. Try restarting both servers
-5. Clear browser cache and retry
+For issues or questions:
+- Check `YOLO_SETUP_GUIDE.md` for YOLO-specific issues
+- Check `YOLO_ALERT_SYSTEM_GUIDE.md` for alert system details
+- Review troubleshooting section above
 
 ---
 
-## 🎉 Success!
+## ✅ Verification Checklist
 
-If you can see the login page and create an account, **you're all set!**
+After setup, verify:
 
-The application is now fully functional and ready for:
-- ✅ Demo presentation
-- ✅ Testing
-- ✅ Development
-- ✅ Deployment
-
----
-
-## 📝 Important Notes
-
-### Data Persistence
-- All data is stored in JSON files
-- Data persists between restarts
-- Located in `frontend/src/data/`
-- Can be manually edited if needed
-
-### Development Mode
-- Hot reload enabled for frontend
-- Auto-restart for backend (with --watch flag)
-- Changes reflect immediately
-
-### Production Build
-```bash
-cd frontend
-npm run build
-# Creates optimized build in dist/
-```
+- [ ] Frontend loads at `http://localhost:3000`
+- [ ] Can login with provided credentials
+- [ ] All navigation links work
+- [ ] Live Monitoring shows video feed
+- [ ] Alerts Dashboard shows YOLO alerts
+- [ ] Analytics page displays charts
+- [ ] Language switcher works (EN/HI/GU)
+- [ ] No console errors in browser
 
 ---
 
-## 🏆 Features Summary
+## 🎉 You're All Set!
 
-### ✅ Completed Features
-- User authentication (signup/login/logout)
-- Responsive dashboard with charts
-- Temple discovery and search
-- Real-time crowd monitoring
-- Darshan booking with QR codes
-- Smart parking system
-- Booking management
-- Profile management
-- Interactive maps
-- Toast notifications
-- Modern UI/UX
+The application is now ready to run. Navigate to `http://localhost:3000` and explore!
 
-### 🔮 Future Enhancements
-- YOLO-based crowd detection
-- AI/ML predictions
-- Payment integration
-- SMS notifications
-- Admin panel
-- Mobile app
+**Good luck with your demo! 🚀**
 
 ---
 
 **Built with ❤️ for Smart India Hackathon 2025**
-
-🙏 **Namaste! Enjoy using Trinetra!**
-
